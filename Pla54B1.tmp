@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://cmvudfv03wcmd"]
+
+[ext_resource type="Script" path="res://scripts/character_body_3d.gd" id="1_iyqmc"]
+[ext_resource type="PackedScene" uid="uid://c0cp76waqm64g" path="res://Prefabs/UI.tscn" id="2_ftga3"]
+[ext_resource type="AudioStream" uid="uid://c1sind5m8tpem" path="res://materials/gunshot.wav" id="2_fyote"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b0b6p"]
+radius = 1.0
+height = 4.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_x3w4a"]
+radius = 0.9
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_rciuc"]
+radius = 1.0
+height = 4.0
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_iyqmc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+shape = SubResource("CapsuleShape3D_b0b6p")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -1)
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="RayCast3D" type="RayCast3D" parent="Head/Camera3D"]
+target_position = Vector3(0, 0, -3)
+
+[node name="Gunshot" type="AudioStreamPlayer" parent="Head"]
+stream = ExtResource("2_fyote")
+
+[node name="TopCast" type="ShapeCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+shape = SubResource("SphereShape3D_x3w4a")
+target_position = Vector3(0, 1, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.999939, 0, 0, 0, 0.999939, 0, 0, 0, 0.999939, 0, 2, 0)
+mesh = SubResource("CapsuleMesh_rciuc")
+
+[node name="Control" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_ftga3")]
+player = NodePath("..")

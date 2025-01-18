@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://wkuwr5dsokao"]
+
+[ext_resource type="PackedScene" uid="uid://cmvudfv03wcmd" path="res://Prefabs/Player.tscn" id="1_mkbud"]
+[ext_resource type="PackedScene" uid="uid://cv81ocl6ehral" path="res://test_scenes/watcher.tscn" id="2_dlj5f"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_t47m8"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_3fa7o"]
+sky_material = SubResource("ProceduralSkyMaterial_t47m8")
+
+[sub_resource type="Environment" id="Environment_5s50c"]
+background_mode = 2
+sky = SubResource("Sky_3fa7o")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_5s50c")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="StaticBody3D" parent="." instance=ExtResource("2_dlj5f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.1099, 0.500001, -1.80408)
+
+[node name="Player" parent="." node_paths=PackedStringArray("Watcher") instance=ExtResource("1_mkbud")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -46.8377, 0.499998, 0.705822)
+Watcher = NodePath("../StaticBody3D")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+use_collision = true
+size = Vector3(100, 1, 30)

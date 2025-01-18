@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://cv81ocl6ehral"]
+
+[ext_resource type="Script" path="res://scripts/static_body_3d.gd" id="1_1r3se"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jel5q"]
+size = Vector3(3, 5, 3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_bd3o0"]
+size = Vector3(3, 5, 3)
+
+[node name="StaticBody3D" type="StaticBody3D" groups=["Watcher"]]
+collision_layer = 3
+constant_linear_velocity = Vector3(0, 0, 2)
+constant_angular_velocity = Vector3(0, 0.698132, 0)
+script = ExtResource("1_1r3se")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+shape = SubResource("BoxShape3D_jel5q")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+mesh = SubResource("BoxMesh_bd3o0")
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
