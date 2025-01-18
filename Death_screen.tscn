@@ -53,7 +53,7 @@ text = "I'm going back"
 
 [node name="Button2" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-text = "i'm a pussy - i'm quitting"
+text = "i'm quitting"
 
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_button_2_pressed"]
